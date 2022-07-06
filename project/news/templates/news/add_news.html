@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+
+{% block sitbar %}
+  {% include 'inc/_sitbar.html' %}
+  {% endblock %}
+{% block content %}
+
+ <h1>Добавление новости</h1>
+
+
+ <form action="" method="post">
+   {% csrf_token %}
+   {{ form.as_p }}
+   {% comment %}    
+  {% for field in form %}
+    <div class='form-group'>
+      {{ field.label_tag }}
+      {{ field }}
+      <div class='invalid-feedback'>
+        {{ field.errors }}
+      </div>
+    </div>
+    {% endfor %}
+
+   {% endcomment %}    
+
+  <button type="submit" class='btn btn-primary btn-block'>Добавить новость</button>   
+ </form>
+
+ {% endblock %}

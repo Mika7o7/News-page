@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+<h1>Hello from World</h1>
+{% endblock %}
+
+
+
+{% block sitbar %}
+<div class="list-group">
+  {% for item in categories %}
+    <a href="{% url 'category' item.pk %}" class="list-group-item list-group-item-action">{{ item.title }}</a>
+  {% endfor %}
+  </div>
+
+{% endblock %}
+
+
+{% block content %}
+  {% for item in news %}
+<div class="card mb-3">
+    <div class="card-header">
+      Категория: <a href="{{item.category.get_absolute_url}}"
+        target="_blank">{{item.category}}</a>
+    </div>
+    <div class="card-body">
+      <div class="media">
+        {% if item.photo %}
+        <img src="{{ item.photo.url }}" alt="" width="350" class="mr-3"/>
+        {% else %}
+        <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt=""
+        class=mr-3/>
+        {% endif %}
+          <div class="media-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">{{ item.content }}</p>
+          </div>
+        </div>
+        </div>
+  </div>
+  {% endfor %}
+{% endblock %}
