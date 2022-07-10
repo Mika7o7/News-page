@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 from .models import News, Category
+from django.urls import reverse
 from .forms import CreateNews, CategoryForm
 # Create your views here.
 
@@ -43,7 +45,7 @@ def add_category(request):
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, "news/home_news_list.html")
+            return HttpResponseRedirect(reverse('home',))
 
 
 def add_news(request):
@@ -51,10 +53,10 @@ def add_news(request):
         form = CreateNews
         return render(request, "news/add_news.html", {'form': form})
     else:
-        form = CreateNews(request.POST, equest.FILES)
+        form = CreateNews(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, "news/home_news_list.html")
+            return HttpResponseRedirect(reverse('home',))
 
 
 def news_ditail(request, pk):
