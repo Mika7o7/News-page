@@ -11,7 +11,7 @@ class News(models.Model):
     photo = models.ImageField(upload_to='photo/%Y/%m/%d/')
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey('Category', on_delete=models.PROTECT,
-                                 default=1)
+                                 default=1, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('home', kwargs={'news_id': self.pk})
