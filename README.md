@@ -1,6 +1,6 @@
 # News-page
 
-It is just single news page
+It is just single news page,
 you can create news and category.
 
 # Install packages
