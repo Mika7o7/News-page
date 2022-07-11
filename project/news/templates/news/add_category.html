@@ -8,6 +8,7 @@
 
  <h1>Добавление категории</h1>
 
+{% if user.is_authenticated %}
 
  <form action="" method="post">
    {% csrf_token %}
@@ -16,5 +17,7 @@
   
     <button type="submit" class='btn btn-primary btn-block'>Добавить категории</button>   
   </form>
-
+{% else %}
+    <a href="{% url "register" %}">Yoy need to register</a>
+{% endif %}
  {% endblock %}
