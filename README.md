@@ -1,7 +1,7 @@
 # News-page
 
 It is just single news page,
-you can create news and category.
+you can register and after it create news and category.
 
 # Install packages
 
