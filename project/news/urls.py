@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        '',
+        'home',
         views.HomeNews.as_view(),
         name='home',
     ),
@@ -24,12 +24,22 @@ urlpatterns = [
         name='news_ditail',
     ),
     path(
+        'news_delete/<int:pk>',
+        views.news_delete,
+        name='news_delete',
+    ),
+    path(
+        'news_change/<int:pk>',
+        views.news_change,
+        name='news_change',
+    ),
+    path(
         'category/<int:category_id>',
         views.NewsByCategory.as_view(),
         name='category',
     ),
     path(
-        "register",
+        "",
         views.register_request,
         name="register",
     ),

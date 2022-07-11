@@ -14,6 +14,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def password_reset_request(request):
@@ -155,11 +156,37 @@ def add_news(request):
     else:
         form = CreateNews(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            news = form.save(commit=False)
+            news.author = request.user
+            news.save()
             return HttpResponseRedirect(reverse('home',))
 
 
 def news_ditail(request, pk):
     news = News.objects.get(pk=pk)
     return render(request, "news/news_ditail.html", {'news': news})
+
+
+def news_delete(request, pk):
+    News.objects.get(pk=pk).delete()
+    return HttpResponseRedirect(reverse('home',))
+
+
+def news_change(request, pk):
+    if request.method == "GET":
+        news = News.objects.get(pk=pk)
+        form = CreateNews(instance=news)
+        return render(request, "news/add_news.html", {'form': form})
+    else:
+        form = CreateNews(
+            request.POST,
+            request.FILES,
+            instance=get_object_or_404(News, pk=pk),
+        )
+        if form.is_valid():
+            news = form.save(commit=False)
+            news.author = request.user
+            news.save()
+            return HttpResponseRedirect(reverse('home',))
+
 

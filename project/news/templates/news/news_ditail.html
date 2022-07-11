@@ -24,6 +24,13 @@
           <div class="media-body">
             <h5 class="card-title">{{ news.title }}</h5>
             <p class="card-text">{{ news.content }}</p>
+            {% if news.author == request.user %}
+              <a href="{% url "news_change" pk=news.id %}">Редактировать</a>
+              <br>
+              <a href="{% url "news_delete" pk=news.id %}">Удалить</a>
+            {% else %}
+              <p>like</p>
+            {% endif %}
           </div>
         </div>
         </div>

@@ -5,14 +5,15 @@
 {% block content %}
 
  <h1>Добавление новости</h1>
+{% if user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
 
-
- <form action="" method="post">
-   {% csrf_token %}
-
-   {{ form.as_p }}
-  
-    <button type="submit" class='btn btn-primary btn-block'>Добавить новость</button>   
-  </form>
-
- {% endblock %}
+      {{ form.as_p }}
+    
+      <button type="submit" class='btn btn-primary btn-block'>Добавить новость</button>   
+      </form>
+  {% else %}
+    <a href="{% url "register" %}">Yoy need to register</a>
+  {% endif %}
+{% endblock %}
